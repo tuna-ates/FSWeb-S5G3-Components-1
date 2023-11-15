@@ -88,6 +88,39 @@ const data = [
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
   },
+  {
+    baslik: "Kendi Başlığım Deneme 1",
+    tarih: "10 Mayıs 2002",
+    ilkParagraf: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    ikinciParagraf: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    ucuncuParagraf: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
+  },
+  {
+    baslik: "Kendi Başlığım Deneme 2",
+    tarih: "28 Haziran 2000",
+    ilkParagraf: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    ikinciParagraf: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    ucuncuParagraf: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
+  },
+
 ];
 
 /*
@@ -120,14 +153,14 @@ const genelContainer=document.querySelector("html .articles");
 
 const haberYapici=(data)=>{
   const content=document.createElement("div");
-  content.classList.add="article";
+  content.classList.add("article");
 
   const headH2=document.createElement("h2"); 
   headH2.textContent=data.baslik;
   content.append(headH2);
 
   const date=document.createElement("p");
-  date.classList.add="tarih";
+  date.classList.add("tarih");
   date.textContent=data.tarih;
   content.append(date);
 
@@ -144,19 +177,29 @@ const haberYapici=(data)=>{
   content.append(parag3);
   
    const contentButton=document.createElement("button");
-   contentButton.classList.add="expandButton";
+   contentButton.classList.add("expandButton");
    contentButton.textContent="+";
    content.append(contentButton);
-
+  
+   contentButton.addEventListener("click",(e)=>{
+    content.classList.toggle("article-open");
+   })
   return content;
 }
+  // veri listesini map ile yeni dizisini oluşturup  kullanım amacı olarak yeni oluşturulan arrayi foreach ile dönüp Doma iletim yöntemi.
+  const newComponent=data.map((arrayItem)=>{
+        let newHaber=haberYapici(arrayItem);
 
- const newComponent=data.map((arrayItem)=>{
-       let newHaber=haberYapici(arrayItem);
+        return newHaber;
+  })
 
-       return newHaber;
- })
+  newComponent.forEach((component)=>{
+    genelContainer.append(component);
+  })
 
- newComponent.forEach((component)=>{
-   genelContainer.append(component);
- })
+//  veri listesini direkt dönerek oluşturulan sonuç için sadece foreach kullanıldı.
+//   data.forEach((arrayItem)=>{
+//    let newHaber=haberYapici(arrayItem);
+
+//    genelContainer.append(newHaber);
+// })
